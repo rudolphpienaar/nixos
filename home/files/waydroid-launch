@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ -z "${XDG_RUNTIME_DIR:-}" || -z "${WAYLAND_DISPLAY:-}" ]]; then
+  echo "Waydroid must be launched from a local Wayland session." >&2
+  exit 1
+fi
+
+log_dir="${XDG_STATE_HOME:-$HOME/.local/state}/waydroid"
+mkdir -p "$log_dir"
+
+# Starting the session can block or fail noisily if one is already active, so
+# treat it as a best-effort background step before opening the UI.
+( waydroid session start >"$log_dir/session-start.log" 2>&1 || true ) &
+sleep 4
+
+exec waydroid show-full-ui

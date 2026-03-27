@@ -1,0 +1,54 @@
+{ pkgs, ... }:
+
+{
+  home.packages = with pkgs; [
+    asciidoctor
+    bsd-finger
+    cpufetch
+    clang-tools
+    curl
+    direnv
+    fd
+    figlet
+    fortune
+    gcc
+    gh
+    git
+    google-cloud-sdk
+    lua-language-server
+    most
+    neofetch
+    neovim
+    nil
+    nix-direnv
+    nixfmt-rfc-style
+    nodejs_24
+    powerline-go
+    python3
+    ripgrep
+    screenfetch
+    shellcheck
+    shfmt
+    stylua
+    toilet
+    unzip
+    wl-clipboard
+    xclip
+    zsh-powerlevel10k
+    fsv
+    nchat
+    element-desktop
+    gnome-terminal
+    vivaldi
+    vivaldi-ffmpeg-codecs
+    guake
+    numix-icon-theme-circle
+    gnome-tweaks
+    bzflag
+    bat
+    spotify
+    xfce.xfce4-terminal
+    btop
+    youtube-viewer
+  ];
+}
