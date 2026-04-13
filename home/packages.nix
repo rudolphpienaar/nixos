@@ -50,5 +50,26 @@
     xfce.xfce4-terminal
     btop
     youtube-viewer
+    mpv
+    yt-dlp
+    vscodium
+    bubblewrap
+    sshuttle
+    ookla-speedtest
+    iw
+    uv
+    cheese
+    glow
+    htop
+    tree
+    gnumake
+    pyright
+    iamb
+    rustc
+    cargo
+    rust-analyzer
+    pkg-config
+    openssl
+    ollama
   ];
 }

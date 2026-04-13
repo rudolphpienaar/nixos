@@ -9,11 +9,19 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = [ "pcie_aspm=off" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.extraModprobeConfig = ''
+    options mt7925e disable_aspm=1
+  '';
 
   networking.hostName = "callisto";
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
+  networking.networkmanager.wifi.scanRandMacAddress = false;
   networking.networkmanager.unmanaged = [ "interface-name:waydroid0" ];
+  networking.firewall.allowedTCPPorts = [ 111 2049 4000 4001 4002 20048 24800 ];
+  networking.firewall.allowedUDPPorts = [ 111 2049 4000 4001 4002 20048 ];
 
   time.timeZone = "America/New_York";
 
@@ -45,6 +53,20 @@
       PasswordAuthentication = true;
     };
   };
+  services.rpcbind.enable = true;
+  services.autofs = {
+    enable = true;
+    autoMaster = "";
+  };
+  services.nfs.server = {
+    enable = true;
+    statdPort = 4000;
+    lockdPort = 4001;
+    mountdPort = 4002;
+    exports = ''
+      /home 192.168.86.0/24(rw,fsid=0,crossmnt,no_subtree_check)
+    '';
+  };
   virtualisation.waydroid = {
     enable = true;
     package = pkgs.waydroid-nftables;
@@ -70,8 +92,12 @@
 
   programs.firefox.enable = true;
   programs.zsh.enable = true;
+  programs.nix-ld.enable = true;
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [
+    (import ./overlays/nchat-master.nix)
+  ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.gc = {
     automatic = true;
@@ -80,8 +106,26 @@
   };
   nix.optimise.automatic = true;
 
+
+  systemd.services.wifi-runtime-powersave-off = {
+    description = "Disable runtime Wi-Fi powersave for MT7925e";
+    after = [ "NetworkManager.service" ];
+    wants = [ "NetworkManager.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ''${pkgs.iw}/bin/iw dev wlp194s0 set power_save off'';
+    };
+  };
+
+  environment.variables = {
+    GI_TYPELIB_PATH = "/run/current-system/sw/lib/girepository-1.0";
+  };
+
   environment.systemPackages = with pkgs; [
     wget
+    libgtop
+    gnome-system-monitor
   ];
 
   fonts.packages = with pkgs; [

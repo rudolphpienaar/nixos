@@ -14,17 +14,19 @@
     plugins = with pkgs.tmuxPlugins; [
       sensible
       tmux-powerline
-      yank
       resurrect
       continuum
-      vim-tmux-navigator
     ];
 
     extraConfig = ''
-      set -g base-index 1
-      setw -g pane-base-index 1
+      set -g base-index 0
+      setw -g pane-base-index 0
       set -g renumber-windows on
-      set -g set-clipboard on
+      set -g set-clipboard off
+      bind-key -T copy-mode y send-keys -X copy-selection-and-cancel
+      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+      bind-key -T copy-mode Enter send-keys -X copy-selection-and-cancel
+      bind-key -T copy-mode-vi Enter send-keys -X copy-selection-and-cancel
       set -g status-position bottom
       set -g status-interval 2
 

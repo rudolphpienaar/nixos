@@ -3,6 +3,7 @@
 {
   home.sessionPath = [
     "$HOME/.local/bin"
+    "$HOME/arch/scripts"
   ];
 
   home.sessionVariables = {

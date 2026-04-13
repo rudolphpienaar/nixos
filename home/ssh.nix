@@ -56,7 +56,7 @@
       };
 
       tabmux = {
-        hostname = "192.168.86.46";
+        hostname = "192.168.86.80";
         port = 8022;
       };
 
@@ -78,7 +78,7 @@
       };
 
       penguin = {
-        hostname = "192.168.86.92";
+        hostname = "192.168.86.90";
         user = "rudolphpienaar";
         port = 2222;
       };

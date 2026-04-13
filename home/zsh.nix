@@ -16,6 +16,7 @@
     };
 
     initContent = ''
+      export PATH="$HOME/.local/bin:$HOME/arch/scripts:$PATH"
       eval "$(direnv hook zsh)"
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
