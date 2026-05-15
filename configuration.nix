@@ -8,15 +8,20 @@
   ];
 
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 5;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "pcie_aspm=off" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+  boot.kernelModules = [ "v4l2loopback" ];
   boot.extraModprobeConfig = ''
     options mt7925e disable_aspm=1
+    options v4l2loopback devices=1 exclusive_caps=0 card_label="Iriun Webcam"
   '';
 
   networking.hostName = "callisto";
   networking.networkmanager.enable = true;
+  networking.networkmanager.dns = "dnsmasq";
   networking.networkmanager.wifi.powersave = false;
   networking.networkmanager.wifi.scanRandMacAddress = false;
   networking.networkmanager.unmanaged = [ "interface-name:waydroid0" ];
@@ -53,10 +58,13 @@
       PasswordAuthentication = true;
     };
   };
+  services.cron.enable = true;
   services.rpcbind.enable = true;
   services.autofs = {
     enable = true;
-    autoMaster = "";
+    autoMaster = ''
+      /net-local -hosts
+    '';
   };
   services.nfs.server = {
     enable = true;
@@ -71,6 +79,7 @@
     enable = true;
     package = pkgs.waydroid-nftables;
   };
+  virtualisation.docker.enable = true;
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -81,11 +90,25 @@
     pulse.enable = true;
   };
 
+  users.groups.fnndsc = {
+    gid = 1102;
+  };
+
   users.users.rudolph = {
     isNormalUser = true;
     description = "Rudolph Pienaar";
-    extraGroups = [ "networkmanager" "wheel" ];
+    uid = 2090878;
+    group = "fnndsc";
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.zsh;
+  };
+
+  users.users.toor = {
+    isNormalUser = true;
+    description = "Rescue Admin";
+    extraGroups = [ "wheel" ];
+    shell = pkgs.zsh;
+    initialPassword = "toor";
   };
 
   security.sudo.wheelNeedsPassword = false;
@@ -93,9 +116,21 @@
   programs.firefox.enable = true;
   programs.zsh.enable = true;
   programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    dbus
+    glib
+    nss
+    nspr
+    atk
+    at-spi2-atk
+    libdrm
+    mesa
+    alsa-lib
+  ];
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
+    (import ./overlays/iriunwebcam.nix)
     (import ./overlays/nchat-master.nix)
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -122,7 +157,13 @@
     GI_TYPELIB_PATH = "/run/current-system/sw/lib/girepository-1.0";
   };
 
+  environment.etc."NetworkManager/dnsmasq.d/tch-harvard.conf".text = ''
+    server=/tch.harvard.edu/134.174.12.1
+    server=/tch.harvard.edu/134.174.12.2
+  '';
+
   environment.systemPackages = with pkgs; [
+    opencode
     wget
     libgtop
     gnome-system-monitor

@@ -29,6 +29,8 @@
       bind-key -T copy-mode-vi Enter send-keys -X copy-selection-and-cancel
       set -g status-position bottom
       set -g status-interval 2
+      set -g set-titles on
+      set -g set-titles-string "#{host_short}:#{session_name}:#{window_index}:#{window_name} #{pane_current_path}"
 
       bind | split-window -h -c "#{pane_current_path}"
       bind - split-window -v -c "#{pane_current_path}"

@@ -17,6 +17,7 @@
     google-cloud-sdk
     lua-language-server
     most
+    mc
     neofetch
     neovim
     nil
@@ -46,7 +47,9 @@
     gnome-tweaks
     bzflag
     bat
-    spotify
+    # Disabled for now: current nixpkgs fetches Spotify from Snapcraft, and
+    # api.snapcraft.io timeouts block unrelated system rebuilds.
+    # spotify
     xfce.xfce4-terminal
     btop
     youtube-viewer
@@ -63,6 +66,7 @@
     htop
     tree
     gnumake
+    jq
     pyright
     ruff
     nodePackages.prettier
@@ -73,5 +77,31 @@
     pkg-config
     openssl
     ollama
+    libreoffice-fresh
+    just
+    ctop
+    lazydocker
+    iriunwebcam
+    android-tools
+    v4l-utils
+    (wrapOBS {
+      plugins = with obs-studio-plugins; [
+        droidcam-obs
+    pandoc
+    poppler-utils
+    tectonic
+    vim
+    gnome-screenshot
+    flameshot
+    eog
+      ];
+    })
+    gedit
   ];
+
+  # Vivaldi's upstream launcher tries to self-download proprietary codecs from
+  # Snapcraft when this path is missing. On NixOS we provide the codec via Nix
+  # instead, avoiding a network-dependent startup path.
+  home.file.".local/lib/vivaldi/media-codecs-git-2026-02-09/libffmpeg.so".source =
+    "${pkgs.vivaldi-ffmpeg-codecs}/lib/libffmpeg.so";
 }

@@ -78,7 +78,7 @@
       };
 
       penguin = {
-        hostname = "192.168.86.90";
+        hostname = "192.168.86.115";
         user = "rudolphpienaar";
         port = 2222;
       };

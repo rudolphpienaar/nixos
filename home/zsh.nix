@@ -33,6 +33,16 @@
 
       compdef '_files' aview
       compdef '_files' dview
+
+      if command -v openclaw >/dev/null 2>&1; then
+        _openclaw_comp_cache="$HOME/.cache/openclaw/completion.zsh"
+        if [[ ! -s "$_openclaw_comp_cache" || "$(command -v openclaw)" -nt "$_openclaw_comp_cache" ]]; then
+          mkdir -p "$(dirname "$_openclaw_comp_cache")"
+          openclaw completion -s zsh >| "$_openclaw_comp_cache"
+        fi
+        source "$_openclaw_comp_cache"
+        unset _openclaw_comp_cache
+      fi
     '';
 
     autosuggestion.enable = true;
