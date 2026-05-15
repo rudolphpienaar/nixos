@@ -64,6 +64,8 @@
     tree
     gnumake
     pyright
+    ruff
+    nodePackages.prettier
     iamb
     rustc
     cargo
