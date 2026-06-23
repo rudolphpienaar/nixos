@@ -52,7 +52,7 @@
       pangea230 = {
         hostname = "pangea.tch.harvard.edu";
         user = "rudolph";
-        proxyJump = "pannotia";
+        proxyJump = "pannotia230";
       };
 
       tabmux = {
