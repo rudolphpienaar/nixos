@@ -49,7 +49,7 @@
         user = "rudolphpienaar";
       };
 
-      pangea230 = {
+      "pangea.tch.harvard.edu pangea230" = {
         hostname = "pangea.tch.harvard.edu";
         user = "rudolph";
         proxyJump = "pannotia230";
