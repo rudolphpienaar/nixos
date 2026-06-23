@@ -49,16 +49,6 @@
         user = "rudolphpienaar";
       };
 
-      "*.tch.harvard.edu" = {
-        proxyJump = "pannotia230";
-      };
-
-      pangea230 = {
-        hostname = "pangea.tch.harvard.edu";
-        user = "rudolph";
-        proxyJump = "pannotia230";
-      };
-
       pangea-local = {
         hostname = "localhost";
         port = 4218;
