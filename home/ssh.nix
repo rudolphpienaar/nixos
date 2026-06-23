@@ -49,17 +49,6 @@
         user = "rudolphpienaar";
       };
 
-      mercury-outside = {
-        hostname = "localhost";
-        port = 4218;
-        user = "rudolphpienaar";
-        proxyJump = "jump";
-        extraOptions = {
-          StrictHostKeyChecking = "no";
-          UserKnownHostsFile = "/dev/null";
-        };
-      };
-
       "*.tch.harvard.edu" = {
         proxyJump = "pannotia230";
       };
