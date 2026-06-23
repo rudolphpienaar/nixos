@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  home.packages = [ pkgs.xfce.xfconf ];
+  home.packages = [ pkgs.xfconf ];
 
   xdg.configFile."autostart/xfconfd.desktop".text = ''
     [Desktop Entry]
@@ -9,7 +9,7 @@
     Version=1.0
     Name=xfconfd
     Comment=Xfce settings daemon for non-Xfce sessions
-    Exec=${pkgs.xfce.xfconf}/bin/xfconfd
+    Exec=${pkgs.xfconf}/bin/xfconfd
     OnlyShowIn=GNOME;Unity;
     X-GNOME-Autostart-enabled=true
     NoDisplay=true

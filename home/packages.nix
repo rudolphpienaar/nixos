@@ -8,6 +8,7 @@
     clang-tools
     curl
     direnv
+    dcmtk
     fd
     figlet
     fortune
@@ -18,7 +19,7 @@
     lua-language-server
     most
     mc
-    neofetch
+    fastfetch
     neovim
     nil
     nix-direnv
@@ -58,7 +59,7 @@
     vscodium
     bubblewrap
     sshuttle
-    ookla-speedtest
+    speedtest-cli
     iw
     uv
     cheese
@@ -69,7 +70,7 @@
     jq
     pyright
     ruff
-    nodePackages.prettier
+    prettier
     iamb
     rustc
     cargo
@@ -94,6 +95,7 @@
     gnome-screenshot
     flameshot
     eog
+    spotify
       ];
     })
     gedit
