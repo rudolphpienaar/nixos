@@ -14,7 +14,7 @@
       };
 
       jump = {
-        hostname = "73.238.37.110";
+        hostname = "73.167.233.252";
         port = 7778;
         user = "rudolphpienaar";
       };
