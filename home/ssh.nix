@@ -59,6 +59,16 @@
         proxyJump = "pannotia230";
       };
 
+      pangea-local = {
+        hostname = "localhost";
+        port = 4218;
+        user = "rudolph";
+        extraOptions = {
+          StrictHostKeyChecking = "no";
+          UserKnownHostsFile = "/dev/null";
+        };
+      };
+
       tabmux = {
         hostname = "192.168.86.80";
         port = 8022;
