@@ -49,6 +49,13 @@
         user = "rudolphpienaar";
       };
 
+      mercury-outside = {
+        hostname = "localhost";
+        port = 4218;
+        user = "rudolphpienaar";
+        proxyJump = "jump";
+      };
+
       "*.tch.harvard.edu" = {
         proxyJump = "pannotia230";
       };
