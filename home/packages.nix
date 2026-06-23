@@ -96,6 +96,7 @@
     flameshot
     eog
     spotify
+    evince
       ];
     })
     gedit
