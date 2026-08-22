@@ -84,7 +84,8 @@ The design intent of the current modules is as follows:
   Declares AstroNvim linkage through `NVIM_APPNAME` and an out-of-store config symlink.
 
 - `/etc/nixos/home/splash.nix`
-  Installs the login splash script.
+  Installs Starship, its prompt variants, and the login dashboard from the
+  pinned `starship-config` flake input.
 
 - `/etc/nixos/home/files/`
   Holds real payload files that should exist as files rather than inline strings.
@@ -93,14 +94,15 @@ This design favors shallow modules with single responsibilities. It is acceptabl
 
 ## Operational Payload Files
 
-Two payloads are intentionally stored as real files rather than embedded Nix text blocks:
+The tmux powerline theme remains a local payload under
+`/etc/nixos/home/files/`. The terminal splash and Starship prompt instead come
+from the pinned `starship-config` flake input. Home Manager installs those files
+without duplicating their implementation in this repository.
 
-- `/etc/nixos/home/files/splash.zsh`
-- `/etc/nixos/home/files/tmux-powerline-callisto.sh`
-
-The reason is practical. Both are operational scripts with their own internal structure. They are easier to read, edit, diff, and debug as files than as quoted multiline strings inside a Nix module.
-
-This does not make them less declarative. Home Manager still installs them through `xdg.configFile`, and their presence remains part of the declared system state. The change is one of representation, not of authority.
+This keeps the machine declarative while giving every non-Nix and NixOS host a
+single source of truth for the terminal theme. Dashboard or prompt changes
+belong in `starship-config`; this repository owns only the adapter that installs
+and initializes them.
 
 ## AstroNvim Strategy
 
@@ -126,9 +128,9 @@ The splash is intentionally treated as a dashboard, not as ornamental startup no
 - broader system summary
 - a trailing quote or fortune
 
-The splash therefore sits at the boundary between tradition and utility. It preserves continuity with a long-lived shell environment while being implemented in a form appropriate to the current machine and configuration model.
+The splash therefore sits at the boundary between tradition and utility. It preserves continuity with a long-lived shell environment while being implemented portably in `starship-config` and installed declaratively here.
 
-Its implementation should remain visually disciplined but operationally secondary. If the splash ever begins to dominate `home.nix` again, it should be moved further outward into standalone files rather than pulling the configuration back toward a monolith.
+Its implementation should remain visually disciplined but operationally secondary. NixOS-specific code should not fork its presentation; platform differences belong behind the shared splash interface.
 
 ## Helper Workflow
 

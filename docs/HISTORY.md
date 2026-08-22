@@ -155,3 +155,25 @@ What changed was the decomposition of this monolithic Home Manager file into a s
 How this was done was by preserving behavior and changing only the configuration shape. Existing logic was copied into focused modules rather than rewritten semantically. The splash script remained the same dashboard logic, but it ceased to be buried inside a quoted Nix string. Likewise, the tmux powerline theme became a first-class file installed through `xdg.configFile` rather than an embedded blob.
 
 Why this refactor matters is that declarative configuration should still be readable as engineering infrastructure. A large inline string is tolerable during experimentation, but it scales poorly. By converting `home.nix` into a composition layer and moving operational payloads into files, the system became easier to navigate, easier to audit, and easier to modify without introducing quoting or escaping errors.
+
+## Shared Starship Theme Ownership
+
+The terminal dashboard and prompt eventually needed to become consistent
+across NixOS, conventional Linux installations, macOS, and Termux. Keeping the
+dashboard in this repository while maintaining the Starship prompt elsewhere
+would have created two visual sources of truth.
+
+What changed was the addition of `starship-config` as a pinned, non-flake input.
+Home Manager now installs the shared splash, Starship layouts, status helpers,
+and Zsh theme runtime from that input. The local splash payload and
+Powerlevel10k initialization were removed.
+
+How this was done was by retaining a small Nix adapter in `home/splash.nix`.
+That module installs Starship and maps files from the external input into their
+expected home-directory locations. The regular Zsh module sources the same two
+interfaces used on other machines: `~/.splash` and
+`~/.config/starship-theme.zsh`.
+
+Why this matters is ownership and locality. Prompt and dashboard behavior now
+change once in `starship-config`, while NixOS remains responsible for pinning,
+installation, and activation rather than carrying a fork of the theme.

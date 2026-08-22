@@ -7,15 +7,29 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-
-  outputs = { nixpkgs, home-manager, ... }: {
-    nixosConfigurations.callisto = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
-        home-manager.nixosModules.home-manager
-      ];
+    starship-config = {
+      url = "github:rudolphpienaar/starship-config";
+      flake = false;
     };
   };
+
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      starship-config,
+      ...
+    }:
+    {
+      nixosConfigurations.callisto = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = { inherit starship-config; };
+          }
+        ];
+      };
+    };
 }

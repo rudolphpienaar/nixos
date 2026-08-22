@@ -36,7 +36,6 @@
     unzip
     wl-clipboard
     xclip
-    zsh-powerlevel10k
     fsv
     nchat
     element-desktop

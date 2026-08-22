@@ -18,10 +18,9 @@
     initContent = ''
       export PATH="$HOME/.local/bin:$HOME/arch/scripts:$PATH"
       eval "$(direnv hook zsh)"
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
       [[ -f ~/.ls_colours_bash-bgblack ]] && source ~/.ls_colours_bash-bgblack
-      [[ -f ~/.config/zsh/splash.zsh ]] && source ~/.config/zsh/splash.zsh
+      [[ -f ~/.splash ]] && source ~/.splash
+      [[ -f ~/.config/starship-theme.zsh ]] && source ~/.config/starship-theme.zsh
 
       aview() {
         asciidoctor -b manpage "$1" -o - 2>/dev/null | man -l - 2>/dev/null | less -R
@@ -50,7 +49,10 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "sudo" ];
+      plugins = [
+        "git"
+        "sudo"
+      ];
     };
   };
 }

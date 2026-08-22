@@ -40,7 +40,24 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "starship-config": "starship-config"
+      }
+    },
+    "starship-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787408295,
+        "narHash": "sha256-65n10Zuqi9gz4Jk/gXTz1njLQzm+cvlO1d2R8Zyt4LE=",
+        "owner": "rudolphpienaar",
+        "repo": "starship-config",
+        "rev": "69752e224e88934fb164b7426dca97b8ce4f5569",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rudolphpienaar",
+        "repo": "starship-config",
+        "type": "github"
       }
     }
   },
