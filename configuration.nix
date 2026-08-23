@@ -44,7 +44,11 @@
   };
 
   services.xserver.enable = true;
-  services.displayManager.gdm.enable = true;
+  services.displayManager.gdm = {
+    enable = true;
+    # Keep boot-time services reachable while the machine waits at GDM.
+    autoSuspend = false;
+  };
   # This host is administered primarily over SSH and must remain reachable.
   # Refuse suspend and hibernation regardless of which desktop service asks.
   systemd.targets = {
@@ -107,6 +111,8 @@
     isNormalUser = true;
     description = "Rudolph Pienaar";
     uid = 2090878;
+    # Start enabled user services at boot, without an interactive login.
+    linger = true;
     group = "fnndsc";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.zsh;

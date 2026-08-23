@@ -23,7 +23,7 @@
     neovim
     nil
     nix-direnv
-    nixfmt-rfc-style
+    nixfmt
     nodejs_24
     powerline-go
     python3
@@ -50,7 +50,7 @@
     # Disabled for now: current nixpkgs fetches Spotify from Snapcraft, and
     # api.snapcraft.io timeouts block unrelated system rebuilds.
     # spotify
-    xfce.xfce4-terminal
+    xfce4-terminal
     btop
     youtube-viewer
     mpv
@@ -84,9 +84,8 @@
     iriunwebcam
     android-tools
     v4l-utils
-    (wrapOBS {
-      plugins = with obs-studio-plugins; [
-        droidcam-obs
+    texliveFull
+    kdePackages.okular
     pandoc
     poppler-utils
     tectonic
@@ -94,8 +93,10 @@
     gnome-screenshot
     flameshot
     eog
-    spotify
     evince
+    (wrapOBS {
+      plugins = with obs-studio-plugins; [
+        droidcam-obs
       ];
     })
     gedit

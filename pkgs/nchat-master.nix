@@ -16,13 +16,13 @@
 }:
 
 let
-  version = "unstable-2026-03-30";
+  version = "unstable-2026-08-02";
 
   src = fetchFromGitHub {
     owner = "d99kris";
     repo = "nchat";
-    rev = "c047a1a239d9d737e89a31bf33d53a29b2ab7a2f";
-    hash = "sha256-D/HQ7ak27uJjRWJAdq4eTPiC/r4W1byzcPaX+zov328=";
+    rev = "6a56ffe9cbecbe83dabe9c2238a9d38fa64efc11";
+    hash = "sha256-zj/lIELniG83VSsXeDdp3Zrn78qRUA65ceQKI5XFDS8=";
   };
 
   libcgowm = buildGoModule {
@@ -30,7 +30,7 @@ let
     inherit version src;
 
     sourceRoot = "${src.name}/lib/wmchat/go";
-    vendorHash = "sha256-5Id5+DehV2juLJnEHYvcI67/ykFUQehSrfFW+toZRM0=";
+    vendorHash = "sha256-750sFLZxQjKkUoOnLoP5lRkKFtDubqNyvfvK6J2Wb5o=";
 
     buildPhase = ''
       runHook preBuild
@@ -51,13 +51,13 @@ stdenv.mkDerivation rec {
 
   nl = "\n";
   postPatch = ''
-    substituteInPlace lib/tgchat/ext/td/CMakeLists.txt       --replace "get_git_head_revision" "#get_git_head_revision"
+    substituteInPlace lib/tgchat/ext/td/CMakeLists.txt       --replace-warn "get_git_head_revision" "#get_git_head_revision"
 
     substituteInPlace lib/wmchat/CMakeLists.txt       --replace-fail 'add_subdirectory(go)'       'set(GO_LIBRARIES ${libcgowm}/libcgowm.a)${nl}target_include_directories(wmchat PRIVATE ${libcgowm})'
 
-    substituteInPlace lib/wmchat/CMakeLists.txt       --replace-fail 'target_link_libraries(wmchat PUBLIC ref-cgowm ncutil ''${GO_LIBRARIES})'       'target_link_libraries(wmchat PUBLIC ${libcgowm}/libcgowm.a ncutil ''${GO_LIBRARIES})'
+    substituteInPlace lib/wmchat/CMakeLists.txt       --replace-fail 'set(WMCHAT_GOLIB ref-cgowm)'       'set(WMCHAT_GOLIB ${libcgowm}/libcgowm.a)'
 
-    substituteInPlace lib/wmchat/CMakeLists.txt       --replace-fail 'add_dependencies(wmchat ref-cgowm)' '#add_dependencies(wmchat ref-cgowm)'
+    substituteInPlace lib/wmchat/CMakeLists.txt       --replace-fail 'add_dependencies(wmchat ''${WMCHAT_GOLIB})' '#add_dependencies(wmchat ''${WMCHAT_GOLIB})'
   '';
 
   nativeBuildInputs = [ cmake gperf go libcgowm ];

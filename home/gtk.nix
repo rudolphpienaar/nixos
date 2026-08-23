@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   gtk = {
@@ -11,5 +11,6 @@
       name = "Numix-Circle-Light";
       package = pkgs.numix-icon-theme-circle;
     };
+    gtk4.theme = config.gtk.theme;
   };
 }

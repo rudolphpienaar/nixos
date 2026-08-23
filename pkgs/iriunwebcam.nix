@@ -10,7 +10,11 @@
   libdrm,
   qt5,
   zlib,
-  xorg,
+  libx11,
+  libxext,
+  libxfixes,
+  libxrender,
+  libxcb,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,11 +36,11 @@ stdenv.mkDerivation rec {
     libdrm
     qt5.qtbase
     zlib
-    xorg.libX11
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrender
-    xorg.libxcb
+    libx11
+    libxext
+    libxfixes
+    libxrender
+    libxcb
     stdenv.cc.cc.lib
   ];
 
