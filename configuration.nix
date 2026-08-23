@@ -45,6 +45,15 @@
 
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
+  # This host is administered primarily over SSH and must remain reachable.
+  # Refuse suspend and hibernation regardless of which desktop service asks.
+  systemd.targets = {
+    sleep.enable = false;
+    suspend.enable = false;
+    hibernate.enable = false;
+    hybrid-sleep.enable = false;
+    suspend-then-hibernate.enable = false;
+  };
   services.desktopManager.gnome.enable = true;
   services.xserver.xkb = {
     layout = "us";
