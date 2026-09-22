@@ -47,11 +47,11 @@
     "starship-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1787452368,
-        "narHash": "sha256-7d+D3RzhQtBKnQGwpOW2qDmXnIQQw+U7MF7u9m2tFZc=",
+        "lastModified": 1790095555,
+        "narHash": "sha256-ONxvW44dpjaj76ix35wucscl1tevRoguD+lPYje0P90=",
         "owner": "rudolphpienaar",
         "repo": "starship-config",
-        "rev": "46ae055a29a534469345f589115420e86e91bff3",
+        "rev": "4ce2325e2a5a28097eb19c1439b949aa785c88d3",
         "type": "github"
       },
       "original": {
