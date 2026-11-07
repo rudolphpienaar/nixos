@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [
@@ -7,7 +7,7 @@
 
   home.username = "rudolph";
   home.homeDirectory = "/home/rudolph";
-  home.stateVersion = "25.11";
+  home.stateVersion = lib.mkDefault "25.11";
 
   programs.home-manager.enable = true;
 }

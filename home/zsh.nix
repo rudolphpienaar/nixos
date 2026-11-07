@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, osConfig, ... }:
 
 {
   programs.zsh = {
@@ -12,7 +12,7 @@
       gemini = "npx -y @google/gemini-cli@latest";
       llm = "npx -y @simonw/llm@latest";
       ns = "nix search nixpkgs";
-      nsr = "nh os switch /home/rudolph/dev/nixos --hostname callisto";
+      nsr = "nh os switch /home/rudolph/dev/nixos --hostname ${osConfig.networking.hostName}";
     };
 
     initContent = ''

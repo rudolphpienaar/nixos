@@ -1,5 +1,5 @@
 {
-  description = "callisto system configuration";
+  description = "Callisto and Vendian workstation configurations";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -20,16 +20,22 @@
       starship-config,
       ...
     }:
+    let
+      mkHost =
+        hostModule:
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            hostModule
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = { inherit starship-config; };
+            }
+          ];
+        };
+    in
     {
-      nixosConfigurations.callisto = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.extraSpecialArgs = { inherit starship-config; };
-          }
-        ];
-      };
+      nixosConfigurations.callisto = mkHost ./configuration.nix;
+      nixosConfigurations.vendian = mkHost ./hosts/vendian;
     };
 }

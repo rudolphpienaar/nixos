@@ -25,6 +25,12 @@
         user = "rudolph";
       };
 
+      vendian = {
+        hostname = "10.0.0.25";
+        user = "rudolph";
+        proxyJump = "jump";
+      };
+
       pannotia230 = {
         hostname = "10.0.0.230";
         user = "rudolph";
