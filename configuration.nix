@@ -74,6 +74,9 @@
     options mt7925e disable_aspm=1
   '';
 
+  # This tunnel targets a host on Callisto's NYC network.
+  home-manager.users.rudolph.imports = [ ./home/tunnel.nix ];
+
   users.users.toor.initialPassword = "toor";
   system.stateVersion = "25.11";
 }

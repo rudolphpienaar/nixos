@@ -17,6 +17,5 @@
     ./ssh.nix
     ./tmux.nix
     ./splash.nix
-    ./tunnel.nix
   ];
 }

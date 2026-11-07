@@ -11,6 +11,8 @@ One lockfile and software profile serve two machines:
 and accounts. `home/` defines Rudolph's shared user environment. Each host owns
 its hardware configuration, hostname, installation state version, and site settings.
 Keep the hardware configuration and state version belonging to each machine.
+The automatic Mercury SSH tunnel is enabled only on Callisto, whose NYC network
+can reach Mercury's private address. Vendian does not start that tunnel.
 
 ## Normal use
 
