@@ -3,7 +3,15 @@
 {
   home.packages = [ pkgs.starship ];
 
-  home.file.".splash".source = starship-config + "/home/.splash";
+  # Startup must not wait for unavailable NFS filesystems.
+  home.file.".splash".source = pkgs.writeText "startup-splash" (
+    builtins.replaceStrings
+      [ "  cpufetch\n" "  neofetch --disable WM --disable Resolution 2>/dev/null" "  screenfetch 2>/dev/null" ]
+      [ "  ${pkgs.coreutils}/bin/timeout -k 1 4 cpufetch || true\n"
+        "  ${pkgs.coreutils}/bin/timeout -k 1 4 neofetch --disable WM Resolution Disk 2>/dev/null || true"
+        "  ${pkgs.coreutils}/bin/timeout -k 1 4 screenfetch -d '-disk' 2>/dev/null || true" ]
+      (builtins.readFile (starship-config + "/home/.splash"))
+  );
 
   xdg.configFile = {
     "starship.toml".source = starship-config + "/home/.config/starship.toml";

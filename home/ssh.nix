@@ -44,7 +44,7 @@
       };
 
       mercury = {
-        hostname = "192.168.86.27";
+        hostname = "192.168.86.170";
         port = 22;
         user = "rudolphpienaar";
       };

@@ -1,0 +1,2 @@
+# Local snapshots taken before system configuration changes.
+*.nix.before-*

@@ -58,6 +58,7 @@
     vscodium
     bubblewrap
     sshuttle
+    sshfs
     speedtest-cli
     iw
     uv
@@ -91,6 +92,7 @@
     tectonic
     vim
     gnome-screenshot
+    kdePackages.spectacle
     flameshot
     eog
     evince
