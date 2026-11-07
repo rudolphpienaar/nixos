@@ -1,6 +1,8 @@
 { ... }:
 
 {
+  home.file.".ls_colours_bash-bgblack".source = ./files/ls-colours-bash-bgblack;
+
   programs.lsd = {
     enable = true;
     enableZshIntegration = true;
