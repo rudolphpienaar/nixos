@@ -37,12 +37,13 @@ account uses UID 2090878 and group `fnndsc` (GID 1102), matching Callisto. Both
 accounts authorize the public key in `keys/rudolph.pub`; no private keys are stored
 here. As on Callisto, the shared profile enables passwordless sudo for wheel.
 
-The installer configuration is backed up at `/etc/nixos.before-callisto`.
+The installer configuration is backed up at `/etc/nixos.bak`, with an additional
+copy at `/home/toor/nixos-install-backup`.
 From the staged checkout, run as `toor`:
 
 ```sh
 sudo nixos-rebuild switch --flake /home/toor/nixos#vendian \
-  --option experimental-features 'nix-command flakes'
+  --option experimental-features 'nix-command flakes' --cores 4 --max-jobs 2
 sudo passwd rudolph
 ```
 
@@ -50,7 +51,8 @@ The password command enables Rudolph's local/graphical login; SSH uses the
 authorized key. After activation, install the normal checkout under
 `/home/rudolph/dev/nixos` and the separate editor checkout under
 `/home/rudolph/dev/avim` (upstream: `https://github.com/rudolphpienaar/avim.git`).
-Callisto has local editor changes, so copy that checkout to reproduce them.
+Callisto's editor checkout, including its local changes, is staged at
+`/home/toor/avim` for installation after activation.
 The shared Home Manager configuration links to that editor directory.
 
 The repo reproduces its declared environment. Personal files, application data,
