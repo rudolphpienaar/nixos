@@ -1,2 +1,3 @@
 # Local snapshots taken before system configuration changes.
 *.nix.before-*
+__pycache__/

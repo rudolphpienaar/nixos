@@ -32,6 +32,23 @@ sudo nixos-rebuild switch --flake /home/rudolph/dev/nixos#callisto
 sudo nixos-rebuild switch --flake /home/rudolph/dev/nixos#vendian
 ```
 
+## Package helpers
+
+- `ns <term>` searches the pinned Nixpkgs used by these workstations.
+- `nsi <attribute>` validates a package against the current host's package set,
+  adds it to `home/extra-packages.json`, and runs `nh os switch` for that host.
+- `nsi --dry-run <attribute>` checks what would happen without editing or rebuilding.
+- `nsr` rebuilds the current host without adding a package.
+
+For example, use `ns lazygit`, then `nsi lazygit`. Already-declared packages are
+skipped. The helper updates a flat JSON list, leaving the nested OBS plugin list
+and other Nix expressions untouched. A failed rebuild restores the prior list
+unless another edit occurred while the rebuild was running.
+
+The extra package declarations are shared by both machines. Commit and push
+after installing, then pull and rebuild on the other workstation to apply them
+there. The helpers do not commit or push automatically.
+
 ## Vendian's first activation
 
 The existing `toor` administrator and password are preserved. The new `rudolph`

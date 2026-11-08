@@ -11,7 +11,7 @@
       codex = "npx -y @openai/codex@latest";
       gemini = "npx -y @google/gemini-cli@latest";
       llm = "npx -y @simonw/llm@latest";
-      ns = "nix search nixpkgs";
+      ns = "nix search ${pkgs.path}";
       nsr = "nh os switch /home/rudolph/dev/nixos --hostname ${osConfig.networking.hostName}";
     };
 

@@ -3,6 +3,7 @@
 {
   imports = [
     ./packages.nix
+    ./extra-packages.nix
     ./session.nix
     ./avim.nix
     ./zsh.nix
